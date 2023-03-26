@@ -27,10 +27,9 @@ export class E2EEClient {
 					this._privateKey = privateKey;
 					resolve();
 				})
-				.catch((err) => {
-					console.error(err);
+				.catch((e) => {
 					this.publicKey = undefined;
-					reject();
+					reject(e);
 				});
 		});
 	}
@@ -47,9 +46,8 @@ export class E2EEClient {
 				.then((keyBuffer: ArrayBuffer) => {
 					resolve(keyBuffer as ArrayBuffer);
 				})
-				.catch((err) => {
-					console.error(err);
-					reject(err);
+				.catch((e) => {
+					reject(e);
 				});
 		});
 	}
@@ -90,11 +88,9 @@ export class E2EEClient {
 			webcrypto.subtle
 				.encrypt({ name: "RSA-OAEP" }, this._clientPublicKey, data)
 				.then((encryptedData: ArrayBuffer) => {
-					console.log("Succesfully enctypted");
 					resolve(encryptedData);
 				})
 				.catch((e) => {
-					console.log("Error while encrypting: ", e);
 					reject(e);
 				});
 		});
