@@ -44,7 +44,7 @@ export class RSAClient {
 	public async exportPublicKey(): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this.publicKey) return reject(undefined);
-			crypto.subtle
+			webcrypto.subtle
 				.exportKey("spki", this.publicKey)
 				.then((keyBuffer: ArrayBuffer) => {
 					resolve(keyBuffer as ArrayBuffer);
