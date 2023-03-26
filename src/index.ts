@@ -2,7 +2,7 @@ import { AESClient } from "./AESClient";
 import { RSAClient } from "./RSAClient";
 
 (async () => {
-	// const message = "Secret Message";
+	// const message = "Secret Message"
 	// const client1 = new RSAClient();
 	// await client1.init();
 	// const expotedKey1 = await client1.exportPublicKey();
