@@ -116,10 +116,9 @@ export class E2EEClient {
 	}
 
 	public arrayBufferToString(buffer: ArrayBuffer) {
-		var binary = "";
-		var bytes = new Uint8Array(buffer);
-		var len = bytes.byteLength;
-		for (var i = 0; i < len; i++) {
+		let binary = "";
+		const bytes = new Uint8Array(buffer);
+		for (var i = 0; i < bytes.byteLength; i++) {
 			binary += String.fromCharCode(bytes[i]);
 		}
 		return binary;
@@ -133,7 +132,6 @@ export class E2EEClient {
 			content += str.substring(0, 64) + "\n";
 			str = str.substring(64);
 		}
-
 		return header + content + footer;
 	}
 
@@ -141,9 +139,9 @@ export class E2EEClient {
 	 * Returns human readable PEM
 	 */
 	public spkiToPEM(keydata: ArrayBuffer): string {
-		var keydataS = this.arrayBufferToString(keydata);
-		var keydataB64 = btoa(keydataS);
-		var keydataB64Pem = this.formatAsPem(keydataB64);
+		const keydataS = this.arrayBufferToString(keydata);
+		const keydataB64 = btoa(keydataS);
+		const keydataB64Pem = this.formatAsPem(keydataB64);
 		return keydataB64Pem;
 	}
 }

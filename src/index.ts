@@ -1,7 +1,7 @@
-import { E2EEClient } from "./EncrypterClient";
+import { E2EEClient } from "./E2EEClient";
 
 (async () => {
-	const message = "Yesss";
+	const message = "Secret Message";
 	const client1 = new E2EEClient();
 	await client1.init();
 	const expotedKey1 = await client1.exportPublicKey();
