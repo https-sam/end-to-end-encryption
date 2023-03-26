@@ -21,7 +21,7 @@ export class E2EEClient {
 					true, // exportable
 					["encrypt", "decrypt"]
 				)
-				.then((key) => {
+				.then((key: webcrypto.CryptoKeyPair) => {
 					const { publicKey, privateKey } = key;
 					this.publicKey = publicKey;
 					this._privateKey = privateKey;
@@ -39,13 +39,13 @@ export class E2EEClient {
 	 * Exports this object's public key so that the client can
 	 * encrypt their data using this object's public key
 	 */
-	public async exportPublicKey(): Promise<ArrayBuffer | undefined> {
+	public async exportPublicKey(): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this.publicKey) return reject(undefined);
 			crypto.subtle
 				.exportKey("spki", this.publicKey)
-				.then((keyBuffer) => {
-					resolve(keyBuffer);
+				.then((keyBuffer: ArrayBuffer) => {
+					resolve(keyBuffer as ArrayBuffer);
 				})
 				.catch((err) => {
 					console.error(err);
@@ -60,7 +60,7 @@ export class E2EEClient {
 	 */
 	public async loadClientPublic(
 		clientPublicBuffer: ArrayBuffer
-	): Promise<void | string> {
+	): Promise<void> {
 		return new Promise((resolve, reject) => {
 			webcrypto.subtle
 				.importKey(
@@ -84,7 +84,7 @@ export class E2EEClient {
 	/**
 	 * Encrypts BufferSource using the client's public key
 	 */
-	public encrypt(data: BufferSource): Promise<ArrayBuffer | string> {
+	public encrypt(data: BufferSource): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this._clientPublicKey) return reject("No client public key found");
 			webcrypto.subtle
@@ -103,7 +103,7 @@ export class E2EEClient {
 	/**
 	 * Decrypts ArrayBuffer using the private key
 	 */
-	public decrypt(data: ArrayBuffer): Promise<ArrayBuffer | undefined> {
+	public decrypt(data: ArrayBuffer): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this._privateKey) return reject(undefined);
 			webcrypto.subtle
