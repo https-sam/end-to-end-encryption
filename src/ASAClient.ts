@@ -1,7 +1,7 @@
 import crypto, { webcrypto } from "crypto";
 import { BufferSource } from "stream/web";
 
-export class E2EEClient {
+export class RSAClient {
 	private _privateKey: webcrypto.CryptoKey | undefined;
 	private _clientPublicKey: webcrypto.CryptoKey | undefined;
 	public publicKey: webcrypto.CryptoKey | undefined;

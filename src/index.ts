@@ -1,12 +1,12 @@
-import { E2EEClient } from "./E2EEClient";
+import { RSAClient } from "./ASAClient";
 
 (async () => {
 	const message = "Secret Message";
-	const client1 = new E2EEClient();
+	const client1 = new RSAClient();
 	await client1.init();
 	const expotedKey1 = await client1.exportPublicKey();
 
-	const client2 = new E2EEClient();
+	const client2 = new RSAClient();
 	await client2.init();
 	const expotedKey2 = await client2.exportPublicKey();
 	await client2.loadClientPublic(expotedKey1);
