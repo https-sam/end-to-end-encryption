@@ -1,5 +1,5 @@
 import { AESClient } from "./AESClient";
-import { RSAClient } from "./ASAClient";
+import { RSAClient } from "./RSAClient";
 
 (async () => {
 	// const message = "Secret Message";
