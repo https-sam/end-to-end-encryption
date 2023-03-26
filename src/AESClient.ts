@@ -32,7 +32,7 @@ export class AESClient {
 	 */
 	public async exportKey(): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
-			if (!this._key) return reject(undefined);
+			if (!this._key) return reject("Error while exporting: No key found.");
 			webcrypto.subtle
 				.exportKey("raw", this._key)
 				.then((keyBuffer: ArrayBuffer) => {

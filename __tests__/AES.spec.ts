@@ -16,6 +16,14 @@ describe("AES key export: exportKey()", () => {
 		await expect(AES.exportKey()).resolves.not.toThrow();
 	});
 
+	it("Should not export key", async () => {
+		expect.assertions(1);
+		const AES = new AESClient();
+		await expect(AES.exportKey()).rejects.toEqual(
+			"Error while exporting: No key found."
+		);
+	});
+
 	it("Should export key of 32 Byets", async () => {
 		expect.assertions(3);
 		const AES = new AESClient();
@@ -34,5 +42,16 @@ describe("AES key import: importBufferKey()", () => {
 		const exportedKey = await AES.exportKey();
 		expect(exportedKey).toBeTruthy();
 		await expect(AES.importBufferKey(exportedKey)).resolves.not.toThrow();
+	});
+
+	it("Should not import key", async () => {
+		expect.assertions(3);
+		const AES = new AESClient();
+		await expect(AES.init()).resolves.not.toThrow();
+		const exportedKey = await AES.exportKey();
+		expect(exportedKey).toBeTruthy();
+		await expect(
+			AES.importBufferKey(new Uint8Array([0x01, 0x00, 0x01]))
+		).rejects.toThrow();
 	});
 });
