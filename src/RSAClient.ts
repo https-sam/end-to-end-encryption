@@ -62,7 +62,7 @@ export class RSAClient {
 	 * Loads the ArrayBuffer representing the client's public key
 	 * to this object
 	 */
-	public async loadClientPublic(
+	public async importClientPublic(
 		clientPublicBuffer: ArrayBuffer
 	): Promise<void> {
 		return new Promise((resolve, reject) => {
@@ -91,7 +91,7 @@ export class RSAClient {
 	public encrypt(data: BufferSource): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this._clientPublicKey)
-				return reject("Error while encrypting: No client public key found");
+				return reject("Error while encrypting: No client public key found.");
 			webcrypto.subtle
 				.encrypt({ name: "RSA-OAEP" }, this._clientPublicKey, data)
 				.then((encryptedData: ArrayBuffer) => {
@@ -109,7 +109,7 @@ export class RSAClient {
 	public decrypt(data: ArrayBuffer): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
 			if (!this._privateKey)
-				return reject("Error while decrypting: No private key found");
+				return reject("Error while decrypting: No private key found.");
 			webcrypto.subtle
 				.decrypt({ name: "RSA-OAEP" }, this._privateKey, data)
 				.then((encryptedData: ArrayBuffer) => {
