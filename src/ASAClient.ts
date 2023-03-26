@@ -8,6 +8,9 @@ export class RSAClient {
 
 	constructor() {}
 
+	/**
+	 * Initializes the RSA key pair - public & private
+	 */
 	public async init(): Promise<void> {
 		return new Promise((resolve, reject) => {
 			webcrypto.subtle
@@ -18,17 +21,17 @@ export class RSAClient {
 						publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
 						hash: { name: "SHA-256" },
 					},
-					true, // exportable
+					false, // private key not exportable
 					["encrypt", "decrypt"]
 				)
-				.then((key: webcrypto.CryptoKeyPair) => {
-					const { publicKey, privateKey } = key;
+				.then(({ publicKey, privateKey }: webcrypto.CryptoKeyPair) => {
 					this.publicKey = publicKey;
 					this._privateKey = privateKey;
 					resolve();
 				})
 				.catch((e) => {
 					this.publicKey = undefined;
+					this._privateKey = undefined;
 					reject(e);
 				});
 		});
@@ -36,7 +39,7 @@ export class RSAClient {
 
 	/**
 	 * Exports this object's public key so that the client can
-	 * encrypt their data using this object's public key
+	 * encrypt their data using this person's public key
 	 */
 	public async exportPublicKey(): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
@@ -54,7 +57,7 @@ export class RSAClient {
 
 	/**
 	 * Loads the ArrayBuffer representing the client's public key
-	 * to this Object
+	 * to this object
 	 */
 	public async loadClientPublic(
 		clientPublicBuffer: ArrayBuffer
@@ -84,7 +87,8 @@ export class RSAClient {
 	 */
 	public encrypt(data: BufferSource): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
-			if (!this._clientPublicKey) return reject("No client public key found");
+			if (!this._clientPublicKey)
+				return reject("Error while encrypting: No client public key found");
 			webcrypto.subtle
 				.encrypt({ name: "RSA-OAEP" }, this._clientPublicKey, data)
 				.then((encryptedData: ArrayBuffer) => {
@@ -101,7 +105,8 @@ export class RSAClient {
 	 */
 	public decrypt(data: ArrayBuffer): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
-			if (!this._privateKey) return reject(undefined);
+			if (!this._privateKey)
+				return reject("Error while decrypting: No private key found");
 			webcrypto.subtle
 				.decrypt({ name: "RSA-OAEP" }, this._privateKey, data)
 				.then((encryptedData: ArrayBuffer) => {

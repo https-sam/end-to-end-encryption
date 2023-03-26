@@ -9,6 +9,7 @@ import { RSAClient } from "./ASAClient";
 	const client2 = new RSAClient();
 	await client2.init();
 	const expotedKey2 = await client2.exportPublicKey();
+	console.log(client1.spkiToPEM(expotedKey2));
 	await client2.loadClientPublic(expotedKey1);
 	const client2Encrypted = await client2.encrypt(Buffer.from(message));
 
