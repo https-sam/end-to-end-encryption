@@ -112,8 +112,8 @@ export class RSAClient {
 				return reject("Error while decrypting: No private key found.");
 			webcrypto.subtle
 				.decrypt({ name: "RSA-OAEP" }, this._privateKey, data)
-				.then((encryptedData: ArrayBuffer) => {
-					resolve(encryptedData);
+				.then((decryptedData: ArrayBuffer) => {
+					resolve(decryptedData);
 				})
 				.catch((e) => reject(e));
 		});

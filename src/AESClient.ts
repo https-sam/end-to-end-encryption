@@ -1,4 +1,5 @@
-import { webcrypto } from "crypto";
+import { getRandomValues, webcrypto } from "crypto";
+import { BufferSource } from "stream/web";
 
 export class AESClient {
 	private _key: webcrypto.CryptoKey | undefined;
@@ -66,5 +67,75 @@ export class AESClient {
 				})
 				.catch((e) => reject(e));
 		});
+	}
+
+	/**
+	 * Encrypts BufferSource using the secret key
+	 */
+	public encrypt(
+		data: BufferSource,
+		tagLength: AESTagLength = 128
+	): Promise<AESEncrypt> {
+		return new Promise((resolve, reject) => {
+			if (!this._key)
+				return reject("Error while encrypting: No client public key found.");
+			const initVector = getRandomValues(new Uint8Array(12));
+			webcrypto.subtle
+				.encrypt(
+					{
+						name: "AES-GCM",
+						iv: initVector,
+						tagLength: tagLength,
+					},
+					this._key,
+					data
+				)
+				.then((encryptedData: ArrayBuffer) => {
+					resolve({
+						data: encryptedData,
+						initVector: initVector,
+					});
+				})
+				.catch((e) => {
+					reject(e);
+				});
+		});
+	}
+
+	/**
+	 * Decrypts ArrayBuffer using the secret key
+	 */
+	public decrypt(
+		data: ArrayBuffer,
+		initVector: Uint8Array,
+		tagLength: AESTagLength = 128
+	): Promise<ArrayBuffer> {
+		return new Promise((resolve, reject) => {
+			if (!this._key)
+				return reject("Error while decrypting: No private key found.");
+			webcrypto.subtle
+				.decrypt(
+					{
+						name: "AES-GCM",
+						iv: initVector,
+						tagLength: tagLength,
+					},
+					this._key,
+					data
+				)
+				.then((decryptedData: ArrayBuffer) => {
+					resolve(decryptedData);
+				})
+				.catch((e) => reject(e));
+		});
+	}
+
+	public arrayBufferToString(buffer: ArrayBuffer) {
+		let binary = "";
+		const bytes = new Uint8Array(buffer);
+		for (var i = 0; i < bytes.byteLength; i++) {
+			binary += String.fromCharCode(bytes[i]);
+		}
+		return binary;
 	}
 }

@@ -55,3 +55,66 @@ describe("AES key import: importBufferKey()", () => {
 		).rejects.toThrow();
 	});
 });
+
+describe("AES Encryption", () => {
+	it("should not encrypt", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		expect(AESClient1.encrypt(Buffer.from(message))).rejects.toEqual(
+			"Error while encrypting: No client public key found."
+		);
+	});
+
+	it("should not decrypt", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		expect(
+			AESClient1.decrypt(Buffer.from(message), new Uint8Array(12))
+		).rejects.toEqual("Error while decrypting: No private key found.");
+	});
+
+	it("should encrypt and decrypt a message", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		await expect(AESClient1.init()).resolves.not.toThrow();
+		const exportedKey = await AESClient1.exportKey();
+		expect(exportedKey).toBeTruthy();
+		const { data: encryptedMessage, initVector } = await AESClient1.encrypt(
+			Buffer.from(message)
+		);
+		expect(encryptedMessage).toBeTruthy();
+
+		const AESClient2 = new AESClient();
+		await expect(
+			AESClient2.importBufferKey(exportedKey)
+		).resolves.not.toThrow();
+		const decryptedData = await AESClient2.decrypt(
+			encryptedMessage,
+			initVector
+		);
+		expect(decryptedData).toBeTruthy();
+		expect(AESClient2.arrayBufferToString(decryptedData)).toBe(
+			"Secret Message"
+		);
+	});
+
+	it("should encrypt and decrypt a message", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		await expect(AESClient1.init()).resolves.not.toThrow();
+		const exportedKey = await AESClient1.exportKey();
+		expect(exportedKey).toBeTruthy();
+		const { data: encryptedMessage, initVector } = await AESClient1.encrypt(
+			Buffer.from(message)
+		);
+		expect(encryptedMessage).toBeTruthy();
+
+		const AESClient2 = new AESClient();
+		await expect(
+			AESClient2.importBufferKey(exportedKey)
+		).resolves.not.toThrow();
+		expect(
+			AESClient2.decrypt(encryptedMessage, new Uint8Array(12)) // passing wrong init vector
+		).rejects.toThrow();
+	});
+});
