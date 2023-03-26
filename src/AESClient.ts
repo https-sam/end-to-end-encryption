@@ -48,7 +48,7 @@ export class AESClient {
 	 * Loads the ArrayBuffer representing the key
 	 * to this object, can only be used to decrypt
 	 */
-	public async loadBufferKey(bufferKey: ArrayBuffer): Promise<void> {
+	public async importBufferKey(bufferKey: ArrayBuffer): Promise<void> {
 		return new Promise((resolve, reject) => {
 			webcrypto.subtle
 				.importKey(
