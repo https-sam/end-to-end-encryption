@@ -5,12 +5,12 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
 
 
 # Installation 
-Yarn 
+**Yarn** 
 ```
 yarn add e2ee-ts
 ```
 
-npm
+**npm**
 ```
 npm i e2ee-ts
 ```
