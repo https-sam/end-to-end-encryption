@@ -3,6 +3,18 @@ A cryptography module that provides RSA & AES encryption interfaces.
 Currently supports RSA-OAEP (Asymmetrical) encryption and AES-GCM (Symmetrical) encryption.   
 This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTab=readme).
 
+
+# Installation 
+Yarn 
+```
+yarn add e2ee-ts
+```
+
+npm
+```
+npm i e2ee-ts
+```
+
 # RSA Client (RSA-OAEP)
 
 ### Init()
