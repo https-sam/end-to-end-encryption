@@ -78,12 +78,12 @@ export class AESClient {
 	): Promise<AESEncrypt> {
 		return new Promise((resolve, reject) => {
 			if (!this._key) return reject("Error while encrypting: No key found.");
-			const initVector = getRandomValues(new Uint8Array(12));
+			const iv = getRandomValues(new Uint8Array(12));
 			webcrypto.subtle
 				.encrypt(
 					{
 						name: "AES-GCM",
-						iv: initVector,
+						iv,
 						tagLength: tagLength,
 					},
 					this._key,
@@ -92,7 +92,7 @@ export class AESClient {
 				.then((encryptedData: ArrayBuffer) => {
 					resolve({
 						data: encryptedData,
-						initVector: initVector,
+						iv,
 					});
 				})
 				.catch((e) => {
@@ -106,7 +106,7 @@ export class AESClient {
 	 */
 	public decrypt(
 		data: ArrayBuffer,
-		initVector: Uint8Array,
+		iv: Uint8Array,
 		tagLength: AESTagLength = 128
 	): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
@@ -115,7 +115,7 @@ export class AESClient {
 				.decrypt(
 					{
 						name: "AES-GCM",
-						iv: initVector,
+						iv,
 						tagLength: tagLength,
 					},
 					this._key,

@@ -78,8 +78,8 @@ describe("AES Encrytion: encrypt()", () => {
 		const message = "Secret Message";
 		const AESClient1 = new AESClient();
 		await expect(AESClient1.init()).resolves.not.toThrow();
-		const { initVector } = await AESClient1.encrypt(Buffer.from(message));
-		expect(initVector.length).toBe(12);
+		const { iv } = await AESClient1.encrypt(Buffer.from(message));
+		expect(iv.length).toBe(12);
 	});
 
 	it("should not encrypt", async () => {
@@ -108,7 +108,7 @@ describe("AES Encryption Encryption intergration", () => {
 		await expect(AESClient1.init()).resolves.not.toThrow();
 		const exportedKey = await AESClient1.exportKey();
 		expect(exportedKey).toBeTruthy();
-		const { data: encryptedMessage, initVector } = await AESClient1.encrypt(
+		const { data: encryptedMessage, iv } = await AESClient1.encrypt(
 			Buffer.from(message)
 		);
 		expect(encryptedMessage).toBeTruthy();
@@ -117,10 +117,7 @@ describe("AES Encryption Encryption intergration", () => {
 		await expect(
 			AESClient2.importBufferKey(exportedKey)
 		).resolves.not.toThrow();
-		const decryptedData = await AESClient2.decrypt(
-			encryptedMessage,
-			initVector
-		);
+		const decryptedData = await AESClient2.decrypt(encryptedMessage, iv);
 		expect(decryptedData).toBeTruthy();
 		expect(AESClient2.arrayBufferToString(decryptedData)).toBe(
 			"Secret Message"
@@ -133,10 +130,10 @@ describe("AES Encryption Encryption intergration", () => {
 		await expect(AESClient1.init()).resolves.not.toThrow();
 		const exportedKey = await AESClient1.exportKey();
 		expect(exportedKey).toBeTruthy();
-		const { data: encryptedMessage, initVector } = await AESClient1.encrypt(
+		const { data: encryptedMessage, iv } = await AESClient1.encrypt(
 			Buffer.from(message)
 		);
-		expect(initVector).toBeTruthy();
+		expect(iv).toBeTruthy();
 		expect(encryptedMessage).toBeTruthy();
 
 		const AESClient2 = new AESClient();
