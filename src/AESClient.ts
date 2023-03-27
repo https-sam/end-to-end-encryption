@@ -1,5 +1,6 @@
 import { getRandomValues, webcrypto } from "crypto";
 import { BufferSource } from "stream/web";
+import { AESEncrypt, AESTagLength } from "./@types/AES";
 
 export class AESClient {
 	private _key: webcrypto.CryptoKey | undefined;

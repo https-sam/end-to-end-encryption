@@ -118,3 +118,15 @@ describe("RSA decryption", () => {
 		);
 	});
 });
+
+describe("PEM export: spkiToPEM()", () => {
+	it("Should convert to spkiToPEM", async () => {
+		expect.assertions(3);
+		const RSA = new RSAClient();
+		await expect(RSA.init()).resolves.not.toThrow();
+		const exportedPublic = await RSA.exportPublicKey();
+		expect(exportedPublic).toBeTruthy();
+		const pem = RSA.spkiToPEM(exportedPublic);
+		expect(pem).toBeTruthy();
+	});
+});
