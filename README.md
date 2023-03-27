@@ -1,6 +1,7 @@
 # End to End Encryption
 A cryptography module that provides RSA & AES encryption interfaces.  
-Currently supports RSA-OAEP (Asymmetrical) encryption and AES-GCM (Symmetrical) encryption. 
+Currently supports RSA-OAEP (Asymmetrical) encryption and AES-GCM (Symmetrical) encryption.   
+This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTab=readme).
 
 # RSA Client (RSA-OAEP)
 
