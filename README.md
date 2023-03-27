@@ -1,5 +1,5 @@
 # End to End Encryption
-This is a cryptography module intended to be used for my other projects.
+A cryptography module that provides RSA & AES encryption interfaces
 
 # RSA Client (RSA-OAEP)
 
