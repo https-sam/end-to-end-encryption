@@ -1,14 +1,19 @@
 {
-	"name": "e2ee",
+	"name": "e2ee-ts",
 	"version": "1.0.0",
-	"description": "",
+	"description": "A module that provides RSA & AES encryption interfaces",
 	"main": "index.js",
 	"scripts": {
 		"start:dev": "npx nodemon",
 		"test": "jest"
 	},
-	"keywords": [],
-	"author": "",
+	"keywords": [
+		"End to End",
+		"Encryption",
+		"Cryptography",
+		"e2ee"
+	],
+	"author": "Sam Goto",
 	"license": "ISC",
 	"devDependencies": {
 		"@types/jest": "^29.5.0",
@@ -18,6 +23,7 @@
 		"typescript": "^5.0.2"
 	},
 	"dependencies": {
-		"@types/node": "^18.15.10"
+		"@types/node": "^18.15.10",
+		"tsc": "^2.0.4"
 	}
 }
