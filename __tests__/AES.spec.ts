@@ -56,23 +56,52 @@ describe("AES key import: importBufferKey()", () => {
 	});
 });
 
-describe("AES Encryption", () => {
+describe("AES Encrytion: encrypt()", () => {
+	it("should encrypt", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		await expect(AESClient1.init()).resolves.not.toThrow();
+		expect(AESClient1.encrypt(Buffer.from(message))).resolves.not.toThrow();
+	});
+
+	it("should encrypt and message should be encrypted", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		await expect(AESClient1.init()).resolves.not.toThrow();
+		const { data: encryptedMessage } = await AESClient1.encrypt(
+			Buffer.from(message)
+		);
+		expect(AESClient1.arrayBufferToString(encryptedMessage)).not.toBe(message);
+	});
+
+	it("should encrypt and return length 12 of init ventor", async () => {
+		const message = "Secret Message";
+		const AESClient1 = new AESClient();
+		await expect(AESClient1.init()).resolves.not.toThrow();
+		const { initVector } = await AESClient1.encrypt(Buffer.from(message));
+		expect(initVector.length).toBe(12);
+	});
+
 	it("should not encrypt", async () => {
 		const message = "Secret Message";
 		const AESClient1 = new AESClient();
 		expect(AESClient1.encrypt(Buffer.from(message))).rejects.toEqual(
-			"Error while encrypting: No client public key found."
+			"Error while encrypting: No key found."
 		);
 	});
+});
 
+describe("AES Decryption: decrypt()", () => {
 	it("should not decrypt", async () => {
 		const message = "Secret Message";
 		const AESClient1 = new AESClient();
 		expect(
 			AESClient1.decrypt(Buffer.from(message), new Uint8Array(12))
-		).rejects.toEqual("Error while decrypting: No private key found.");
+		).rejects.toEqual("Error while decrypting: No key found.");
 	});
+});
 
+describe("AES Encryption Encryption intergration", () => {
 	it("should encrypt and decrypt a message", async () => {
 		const message = "Secret Message";
 		const AESClient1 = new AESClient();
@@ -98,7 +127,7 @@ describe("AES Encryption", () => {
 		);
 	});
 
-	it("should encrypt and decrypt a message", async () => {
+	it("should encrypt, but not decrypt a message", async () => {
 		const message = "Secret Message";
 		const AESClient1 = new AESClient();
 		await expect(AESClient1.init()).resolves.not.toThrow();
@@ -107,6 +136,7 @@ describe("AES Encryption", () => {
 		const { data: encryptedMessage, initVector } = await AESClient1.encrypt(
 			Buffer.from(message)
 		);
+		expect(initVector).toBeTruthy();
 		expect(encryptedMessage).toBeTruthy();
 
 		const AESClient2 = new AESClient();

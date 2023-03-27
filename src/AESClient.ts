@@ -77,8 +77,7 @@ export class AESClient {
 		tagLength: AESTagLength = 128
 	): Promise<AESEncrypt> {
 		return new Promise((resolve, reject) => {
-			if (!this._key)
-				return reject("Error while encrypting: No client public key found.");
+			if (!this._key) return reject("Error while encrypting: No key found.");
 			const initVector = getRandomValues(new Uint8Array(12));
 			webcrypto.subtle
 				.encrypt(
@@ -111,8 +110,7 @@ export class AESClient {
 		tagLength: AESTagLength = 128
 	): Promise<ArrayBuffer> {
 		return new Promise((resolve, reject) => {
-			if (!this._key)
-				return reject("Error while decrypting: No private key found.");
+			if (!this._key) return reject("Error while decrypting: No key found.");
 			webcrypto.subtle
 				.decrypt(
 					{
