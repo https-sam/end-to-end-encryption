@@ -1,11 +1,21 @@
 {
 	"name": "e2ee-ts",
-	"version": "1.0.0",
+	"version": "1.0.3",
 	"description": "A module that provides RSA & AES encryption interfaces",
-	"main": "index.js",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/https-sam/end-to-end-encryption-module"
+	},
+	"files": [
+		"dist"
+	],
 	"scripts": {
 		"start:dev": "npx nodemon",
-		"test": "jest"
+		"test": "jest",
+		"build": "rm -rf dist/ && tsc --build",
+		"clean": "tsc --build --clean"
 	},
 	"keywords": [
 		"End to End",

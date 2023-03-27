@@ -1,4 +1,4 @@
-import crypto, { webcrypto } from "crypto";
+import { webcrypto } from "crypto";
 import { BufferSource } from "stream/web";
 
 export class RSAClient {
