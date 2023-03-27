@@ -1,7 +1,7 @@
 # End to End Encryption
 This is a personal module intended to be used for other projects.
 
-# RSA Client
+# RSA Client (RSA-OAEP)
 
 ### Init()
 Creates a RSA key pair, note that the private key cannot be exported. This method must be called first before other methods can be called, otherwise, it will reject all the operations. 
