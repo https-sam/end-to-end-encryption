@@ -148,8 +148,8 @@ await client.decrypt(
 
 
 # Tests
-All unit test cases are defined under [\_\_tests\_\_](/__tests__/) folder.
-You can run the tests with  
+All unit test cases are defined under [\_\_tests\_\_](/__tests__/) folder.  
+Run it with:  
 ```
 npm run test
 ```
