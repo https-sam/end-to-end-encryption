@@ -9,6 +9,7 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
 - [x] **RSA** & **AES** encryption algorithms
 - [x] PEM format export
 
+## Contents
 
 *   [When should I use this?](#when-should-i-use-this)
 *   [Installation](#installation)
