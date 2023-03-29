@@ -1,6 +1,6 @@
 {
 	"name": "e2ee-ts",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "A module that provides RSA & AES encryption interfaces",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
