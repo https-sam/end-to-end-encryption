@@ -27,6 +27,7 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
         *   [`importBufferKey()`](#aes-import-buffer-key)
         *   [`encrypt()`](#aes-encrypt)
         *   [`decrypt()`](#aes-decrypt)
+*   [Tests](#Tests)
         
 # Why should I use this?
 This module abstracts the [webcrypto APIs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API), and provides easier interfaces to interact with.
@@ -146,3 +147,9 @@ await client.decrypt(
 ```
 
 
+# Tests
+All unit test cases are defined under `[__tests__](/__tests__/)` folder.
+You can run the tests with  
+```
+npm run test
+```
