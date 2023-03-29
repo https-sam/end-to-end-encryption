@@ -11,7 +11,7 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
 
 ## Contents
 
-*   [When should I use this?](#when-should-i-use-this)
+*   [Why should I use this?](#why-should-i-use-this)
 *   [Installation](#installation)
 *   [APIs](#apis)
     *   [RSA-OAEP](#rsa-client)
