@@ -28,7 +28,7 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
         *   [`encrypt()`](#aes-encrypt)
         *   [`decrypt()`](#aes-decrypt)
         
-# When should I use this?
+# Why should I use this?
 This module abstracts the [webcrypto APIs](https://developer.mozilla.org/en-US/docs/Web/API/Web_Crypto_API), and provides easier interfaces to interact with.
 
 # Installation 
