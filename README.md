@@ -15,14 +15,18 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
 *   [Installation](#installation)
 *   [APIs](#apis)
     *   [RSA-OAEP](#rsa-client)
-        *   [`init`](#rsa-init)
+        *   [`init()`](#rsa-init)
         *   [`exportPublicKey()`](#rsa-export-public-key)
-        *   [`loadClientPublic()`](#rsa-load-client-public)
+        *   [`importClientPublic()`](#rsa-import-client-public)
         *   [`encrypt()`](#rsa-encrypt)
         *   [`decrypt()`](#rsa-decrypt)
         *   [`spkiToPEM()`](#rsa-spkitopem)
     *   [AES-GCM](#aes)
-        *   [`init`](#aes-init)
+        *   [`init()`](#aes-init)
+        *   [`exportKey()`](#aes-export-key)
+        *   [`importBufferKey()`](#aes-import-buffer-key)
+        *   [`encrypt()`](#aes-encrypt)
+        *   [`decrypt()`](#aes-decrypt)
 
 # Installation 
 **Yarn** 
@@ -52,8 +56,8 @@ await client.init();
 const expotedKey = await client.exportPublicKey();
 ```
 
-### <p id="rsa-load-client-public">loadClientPublic(ArrayBuffer)</p>
-Loads a public key into the object, which will be used for encryption.
+### <p id="rsa-import-client-public">importClientPublic(ArrayBuffer)</p>
+Imports a public key into the object, which will be used for encryption.
 ```js
 const client = new RSAClient();
 await client.init();
@@ -88,6 +92,54 @@ await client.init();
 const expotedKey = await client.exportPublicKey();
 const pem = client.spkiToPEM(expotedKey)
 
+```
+
+
+
+
+# AES Client
+
+### <p id="aes-init">init()</p>
+Generates a AES key, note that the private key cannot be exported. This method must be called first before other methods can be called, otherwise, it will reject all the operations. 
+```js
+const client = new AESClient();
+await client.init();
+```
+
+### <p id="aes-export-key">exportKey()<p>
+Exports the key as `ArrayBuffer`. Returns `Promise<ArrayBuffer>`.
+```js
+const client = new AESClient();
+await client.init();
+const expotedKey = await client.exportKey();
+```
+
+### <p id="aes-import-buffer-key">importBufferKey(ArrayBuffer)</p>
+Imports a key into the object, which will be used for encryption.
+```js
+const client = new AESClient();
+await client.init();
+const expotedKey = await client.exportKey();
+
+const client2 = new AESClient();
+await client2.importBufferKey(expotedKey);
+
+```
+
+### <p id="aes-encrypt">encrypt(BufferSource)</p>
+Encrypts BufferSource using the public key. Returns `Promise<ArrayBuffer>`.
+```js
+await client.encrypt(
+  message as ArrayBuffer,
+);
+```
+
+### <p id="aes-decrypt">decrypt(ArrayBuffer)</p>
+Decrypts ArrayBuffer using the private key. Returns `Promise<ArrayBuffer>`.
+```js
+await client.decrypt(
+  encryptedMessage as ArrayBuffer
+);
 ```
 
 
