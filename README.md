@@ -1,3 +1,6 @@
+
+[![MergeChecks](https://github.com/https-sam/end-to-end-encryption-module/actions/workflows/.github/workflows/merge_checks.yml/badge.svg)](https://github.com/https-sam/end-to-end-encryption-module/actions)
+
 # End to End Encryption
 A cryptography module that provides RSA & AES encryption interfaces.  
 Currently supports RSA-OAEP (Asymmetrical) encryption and AES-GCM (Symmetrical) encryption.   
