@@ -4,7 +4,6 @@ import { AESEncrypt, AESTagLength } from "./@types/AES";
 
 export class AESClient {
 	private _key: webcrypto.CryptoKey | undefined;
-	constructor() {}
 
 	public async init(): Promise<void> {
 		return new Promise((resolve, reject) => {
@@ -38,7 +37,7 @@ export class AESClient {
 			webcrypto.subtle
 				.exportKey("raw", this._key)
 				.then((keyBuffer: ArrayBuffer) => {
-					resolve(keyBuffer as ArrayBuffer);
+					resolve(keyBuffer);
 				})
 				.catch((e) => {
 					reject(e);
@@ -132,7 +131,7 @@ export class AESClient {
 	public arrayBufferToString(buffer: ArrayBuffer) {
 		let binary = "";
 		const bytes = new Uint8Array(buffer);
-		for (var i = 0; i < bytes.byteLength; i++) {
+		for (let i = 0; i < bytes.byteLength; i++) {
 			binary += String.fromCharCode(bytes[i]);
 		}
 		return binary;

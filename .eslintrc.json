@@ -1,0 +1,28 @@
+{
+  "root":  true,
+  "env": {
+      "es2021": true
+  },
+  "parser": "@typescript-eslint/parser",
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "plugin:@typescript-eslint/strict"
+  ],
+  "parserOptions": {
+    "sourceType": "module",
+    "tsconfigRootDir": ".",
+    "project": ["./tsconfig.json"]
+  },
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "parser": "@typescript-eslint/parser",
+        "project:": "./tsconfig.json"
+      }
+    }
+  ],
+  "rules": {
+  }
+}
