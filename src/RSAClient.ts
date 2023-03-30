@@ -6,8 +6,6 @@ export class RSAClient {
 	private _clientPublicKey: webcrypto.CryptoKey | undefined;
 	public publicKey: webcrypto.CryptoKey | undefined;
 
-	constructor() {}
-
 	/**
 	 * Initializes the RSA key pair - public & private
 	 */
@@ -50,7 +48,7 @@ export class RSAClient {
 			webcrypto.subtle
 				.exportKey("spki", this.publicKey)
 				.then((keyBuffer: ArrayBuffer) => {
-					resolve(keyBuffer as ArrayBuffer);
+					resolve(keyBuffer);
 				})
 				.catch((e) => {
 					reject(e);
@@ -122,7 +120,7 @@ export class RSAClient {
 	public arrayBufferToString(buffer: ArrayBuffer) {
 		let binary = "";
 		const bytes = new Uint8Array(buffer);
-		for (var i = 0; i < bytes.byteLength; i++) {
+		for (let i = 0; i < bytes.byteLength; i++) {
 			binary += String.fromCharCode(bytes[i]);
 		}
 		return binary;
