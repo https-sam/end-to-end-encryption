@@ -8,9 +8,9 @@ This module is available on [npm](https://www.npmjs.com/package/e2ee-ts?activeTa
 
 ## Feature highlights
 
-- [x] Easy interfaces to safely **encrypt / decrypt**
-- [x] **RSA** & **AES** encryption algorithms
-- [x] PEM format export
+- [x] Easy interfaces to safely **encrypt / decrypt**.
+- [x] **RSA** & **AES** encryption algorithms.
+- [x] PEM format export.
 
 ## Contents
 
